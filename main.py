@@ -7,7 +7,12 @@ app = Flask(__name__)
 @app.route("/send-lead", methods=["POST"])
 def send_lead():
     token = request.args.get("token")
-    if token != os.getenv("ACCESS_TOKEN"):
+    expected_token = os.getenv("ACCESS_TOKEN")
+
+    print("🛡 Token reçu :", token)
+    print("🔐 Token attendu :", expected_token)
+
+    if token != expected_token:
         return jsonify({"error": "Unauthorized"}), 403
 
     payload = request.get_json()
@@ -25,6 +30,6 @@ def send_lead():
         }), response.status_code
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+        
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
