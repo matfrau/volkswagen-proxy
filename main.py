@@ -15,6 +15,10 @@ def send_lead():
     if token != expected_token:
         return jsonify({"error": "Unauthorized"}), 403
 
+    # ✅ Debug des identifiants envoyés à Volkswagen
+    print("👤 VW_USERNAME :", os.getenv("VW_USERNAME"))
+    print("🔑 VW_PASSWORD :", os.getenv("VW_PASSWORD"))
+
     payload = request.get_json()
     try:
         response = requests.post(
@@ -30,6 +34,7 @@ def send_lead():
         }), response.status_code
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
         
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
