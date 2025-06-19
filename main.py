@@ -18,7 +18,7 @@ def send_lead():
     payload = request.get_json()
     try:
         response = requests.post(
-            "https://api.non-prod.volkswagengroup.fr/tools/qa/leads/v2/leads",
+            "https://api.volkswagengroup.fr/tools/prd/leads/v2/leads",
             json=payload,
             headers={"Content-Type": "application/json"},
             auth=(os.getenv("VW_USERNAME"), os.getenv("VW_PASSWORD")),
